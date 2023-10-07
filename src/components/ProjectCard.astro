@@ -1,0 +1,68 @@
+---
+interface Props {
+    project: Project;
+}
+const project = Astro.props.project;
+---
+
+<article
+    class="contFlip flex relative m-4 w-full md:w-1/3 lg:w-1/4 aspect-[3/4]"
+>
+    <!-- Parte frontal de la tarjeta -->
+    <div
+        style={`background-image: url(${project.mobileImageURL});`}
+        class="frontFlip absolute flex-col-reversed w-full h-full p-4 rounded-lg bg-cover bg-no-repeat bg-start"
+    >
+        <!-- Contenedor de tecnologías -->
+        <div
+            class="w-full inline-flex space-evenly space-x-4 font-[Subtitulos]"
+        >
+            <!-- Aquí se generan dinámicamente las tecnologías -->
+        </div>
+    </div>
+
+    <!-- Parte trasera de la tarjeta -->
+    <div
+        class="backFlip absolute w-full h-full px-8 mx-auto rounded-lg backdrop-blur-sm bg-white/30 flex flex-col justify-evenly align-center outline outline-1"
+    >
+        <!-- Título del proyecto -->
+        <h3 class="text-center font-bold align-start text-slate-800">
+            {project.name}
+        </h3>
+
+        <!-- Imagen de escritorio del proyecto -->
+        <img src={project.desktopImageURL} class="w-full mx-auto rounded-md" />
+
+        <!-- Descripción del proyecto -->
+        <p class="text-left text-slate-800">
+            {project.description}
+        </p>
+
+        <!-- Enlace "Try it now!" (si está disponible) -->
+        <a
+            href={project.url}
+            target="_blank"
+            class="bg-yellow-500 w-auto mx-auto rounded-md p-2 shadow-md hover:scale-125 transition duration-400 ease-in-out"
+            >Try it now!</a
+        >
+    </div>
+</article>
+
+<style>
+    .contFlip div {
+        backface-visibility: hidden;
+        transition: 0.5s ease-in-out;
+    }
+    .frontFlip {
+        transform: perspective(700px) rotateY(0deg);
+    }
+    .backFlip {
+        transform: perspective(700px) rotateY(180deg);
+    }
+    .contFlip:hover .backFlip {
+        transform: perspective(700px) rotateY(360deg);
+    }
+    .contFlip:hover .frontFlip {
+        transform: perspective(700px) rotateY(180deg);
+    }
+</style>

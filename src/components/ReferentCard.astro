@@ -1,0 +1,38 @@
+---
+interface Props {
+    referent: Referent;
+}
+const { referent } = Astro.props;
+---
+
+<a
+    href={referent.URL}
+    target="_blank"
+    class="hideTS rounded-lg bg-gradient-to-t from-midnightBlue to-blueGray flex flex-col justify-between w-48 h-auto p-4 m-4 drop-shadow-md text-center space-y-2 shrink-0 snap-center"
+>
+    {referent.name}
+    <img
+        src={referent.imgURL}
+        alt={referent.name}
+        class="rounded-full aspect-[1/1] object-cover object-top outline outline-1 drop-shadow-sm my-2"
+    />
+</a>
+
+<style>
+    a.hideTS {
+        opacity: 0;
+        filter: blur(5px);
+        transition: all 2s;
+        transform: translateX(-50%);
+    }
+    a.revealTS {
+        opacity: 1;
+        filter: blur(0);
+        transition: all 2s;
+        transform: translateX(0);
+    }
+    a:hover {
+        transform: scale(105%);
+        transition: 500ms;
+    }
+</style>
