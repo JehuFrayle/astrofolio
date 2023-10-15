@@ -4,16 +4,49 @@ interface Props {
 }
 const { title } = Astro.props;
 ---
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="https://projects.jehufrayle.com/resources/favicon.png" type="image/x-icon">
-	<title>{title}</title>
-</head>
-<body class="bg-gradient-to-r from-darkBlue via-midnightBlue to-darkBlue text-cyan-50">
-	<slot/>
-</body>
+
+<!doctype html>
+<html lang="en" class="scroll-smooth font-[Texto]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="shortcut icon"
+			href="https://projects.jehufrayle.com/resources/favicon.png"
+			type="image/x-icon"
+		/>
+		<title>{title}</title>
+	</head>
+	<body
+		class="bg-gradient-to-b from-violet-900 via-purple-900 to-Black text-cyan-50"
+	>
+		<slot />
+	</body>
 </html>
+
+<style is:global>
+	@font-face {
+		font-family: "Titulo";
+		src: url("/fonts/RobotoMono-Bold.ttf") format("truetype");
+	}
+
+	@font-face {
+		font-family: "Subtitulos";
+		src: url("/fonts/RobotoFlex-Regular.ttf") format("truetype");
+	}
+
+	@font-face {
+		font-family: "Texto";
+		src: url("/fonts/Marcellus-Texto.ttf") format("truetype");
+	}
+
+	h1 {
+		font-family: "Titulo";
+	}
+
+	h2 {
+		font-family: "Subtitulos";
+		color: #f7df1e;
+	}
+</style>

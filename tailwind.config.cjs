@@ -28,7 +28,11 @@ module.exports = {
 			'darkBlue': '#071330',
 			'jsYellow': '#F7DF1E',
 			'tsBlue': '#3178C6',
-		  }
+			"Black": "#0E050F",
+			"DarkBlue": "#170B3B",
+			"Purple": "#341948",
+			"PurpleHaze": "#9388A2"
+		  },
 		},
 		plugins: [],
 	  },
