@@ -5,6 +5,11 @@ import { referentes } from "../info/referentes.ts";
 import ReferentCard from "../components/ReferentCard.astro";
 import ProjectSlide from "../components/ProjectSlide.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+
+import CatLogo from "../public/CatLogo.webp";
+import { Image } from "astro:assets";
+
+const quantityOfProjects = proyectos.length;
 ---
 
 <Layout title="Jehu Frayle">
@@ -54,16 +59,12 @@ import ProjectCard from "../components/ProjectCard.astro";
 		>
 			<div
 				id="Avatar"
-				class="flex justify-center items-center relative w-32 h-32 lg:w-64 lg:h-64 mx-auto my-2 rounded-full animate-avatar-animation"
+				class="flex justify-center items-center relative mx-auto my-2 w-64 lg:w-80"
 			>
-				<div
-					class="absolute w-full inset-0 rounded-full bg-sky-500 blur-md"
-				>
-				</div>
-				<img
-					src="https://projects.jehufrayle.com/public/f236339547f2d3d47e57.jpg"
+				<Image
+					src={CatLogo}
 					alt="Jehú Frayle"
-					class="relative w-full rounded-full outline outline-sky-500 outline-offset-2"
+					class="relative w-full rounded-full"
 				/>
 			</div>
 			<div class="flex flex-col space-y-3 m-auto">
@@ -145,6 +146,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 			</p>
 			<!-- Aquí van los proyectos con TS -->
 			<div
+				id="ProjectSlider"
 				class="hideTS w-full overflow-scroll overflow-y-hidden snap-proximity snap-x space-x-0 hidden md:flex"
 			>
 				{proyectos.map((proj) => <ProjectSlide project={proj} />)}
@@ -264,7 +266,8 @@ import ProjectCard from "../components/ProjectCard.astro";
 				 in some or other way.
 			</p>
 			<div
-				class="w-full mx-auto h-auto flex overflow-x-scroll overscroll-x-contain snap-mandatory snap-x space-2"
+				class="w-full mx-auto h-auto flex overflow-x-scroll overscroll-x-contain snap-mandatory snap-x space-2
+				md:flex-wrap md:overflow-hidden md:justify-around"
 			>
 				{referentes.map((ref) => <ReferentCard referent={ref} />)}
 			</div>
@@ -298,7 +301,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 			opacity: 1;
 			filter: blur(0);
 			transform: translateX(0);
-			transition: all 2s;
+			transition: all 500ms;
 		}
 		#Projects.hideTS {
 			opacity: 0;
@@ -309,7 +312,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 			opacity: 1;
 			filter: blur(0);
 			transform: translateX(0);
-			transition: all 2s;
+			transition: all 500ms;
 		}
 		#Contact .hideTS {
 			opacity: 0;
@@ -320,7 +323,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 			opacity: 1;
 			filter: blur(0);
 			transform: scale(100%);
-			transition: all 2s;
+			transition: all 500ms;
 		}
 		@media (prefers-reduced-motion) {
 			.hideTS {
@@ -369,5 +372,37 @@ import ProjectCard from "../components/ProjectCard.astro";
 				header?.classList.remove("visible");
 			}
 		});
+	</script>
+
+	<script define:vars={{ quantityOfProjects }}>
+	// JavaScript para el desplazamiento automático
+	const container = document.querySelector("#ProjectSlider");
+	let scrollPosition = 0;
+	const scrollAmount = container.scrollWidth / quantityOfProjects; // Ajusta la cantidad de desplazamiento según tus necesidades
+	const scrollInterval = 2000; // Intervalo en milisegundos
+
+	function autoScroll() {
+		if (
+			scrollPosition <
+			container.scrollWidth - container.clientWidth
+		) {
+			scrollPosition += scrollAmount;
+		} else {
+			scrollPosition = 0;
+		}
+		container.scrollTo({
+			left: scrollPosition,
+			behavior: "smooth",
+		});
+	}
+
+	// set interval
+	let intervalID = setInterval(autoScroll, scrollInterval);
+	container.addEventListener("mouseenter", () => {
+		clearInterval(intervalID);
+	});
+	container.addEventListener("mouseleave", () => {
+		intervalID = setInterval(autoScroll, scrollInterval);
+	});
 	</script>
 </Layout>
